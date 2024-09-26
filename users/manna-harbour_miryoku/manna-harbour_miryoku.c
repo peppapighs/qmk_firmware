@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
 
-const key_override_t **key_overrides = (const key_override_t *[]){&capsword_key_override, NULL};
+const key_override_t *key_overrides[] = {&capsword_key_override, NULL};
 
 // thumb combos
 
@@ -79,3 +79,17 @@ combo_t                key_combos[COMBO_COUNT] = {COMBO(thumbcombos_base_right, 
 #    endif
                                                   COMBO(thumbcombos_fun, KC_APP)};
 #endif
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LGUI_T(KC_A):
+        case LALT_T(KC_S):
+        case LCTL_T(KC_D):
+        case LCTL_T(KC_K):
+        case LALT_T(KC_L):
+        case LGUI_T(KC_SCLN):
+            return TAPPING_TERM_SLOW;
+        default:
+            return TAPPING_TERM;
+    }
+}
